@@ -21,7 +21,7 @@ fi
 
 git checkout --orphan $PUBLISH_BRANCH
 cp -R $DOCS_PATH /github/docs
-git rm -r .
+git rm -r -f .
 rm -r .
 mv /github/docs/* .
 
