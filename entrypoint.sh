@@ -11,11 +11,16 @@ if test -z "$PUBLISH_BRANCH"; then
     PUBLISH_BRANCH=gh-pages
 fi
 
-echo "DOCS_PATH: $DOCS_PATH"
-echo "PUBLISH_BRANCH: $PUBLISH_BRANCH"
+if test -z "$GIT_COMMIT_EMAIL"; then
+    echo 'Please set the GIT_COMMIT_EMAIL environment variable to a GitHub verified email address.' 1>&2
+    exit 1
+fi
+
+if test -z "$GIT_COMMIT_USER"; then
+    GIT_COMMIT_USER="$GITHUB_ACTOR"
+fi
 
 if git branch --list | grep -q $PUBLISH_BRANCH; then
-    echo 'branch already exists, deleting first'
     git branch -D $PUBLISH_BRANCH
 fi
 
@@ -35,6 +40,6 @@ chmod 600 ~/.netrc
 
 git add .
 git config user.name "$GITHUB_ACTOR"
-git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+git config user.email "$GIT_COMMIT_EMAIL"
 git commit $GIT_COMMIT_FLAGS -m "Publish"
 git push -f origin $PUBLISH_BRANCH
