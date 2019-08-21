@@ -21,7 +21,7 @@ fi
 
 git checkout --orphan $PUBLISH_BRANCH
 cp -R $DOCS_PATH /github/docs
-git rm --cached -r .
+git rm -r .
 mv /github/docs/* .
 
 if test -n $SHOW_UNDERSCORE_FILES; then
