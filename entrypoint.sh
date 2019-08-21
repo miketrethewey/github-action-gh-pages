@@ -28,6 +28,9 @@ if test -n $SHOW_UNDERSCORE_FILES; then
     touch .nojekyll
 fi
 
+echo "machine github.com login $GITHUB_ACTOR password $GITHUB_TOKEN" > ~/.netrc
+chmod 600 ~/.netrc
+
 git add .
 git config user.name "$GITHUB_ACTOR"
 git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
