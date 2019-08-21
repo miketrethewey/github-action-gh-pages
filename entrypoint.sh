@@ -31,5 +31,5 @@ fi
 git add .
 git config user.name "$GITHUB_ACTOR"
 git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-git commit -m "Publish"
+git commit $GIT_COMMIT_FLAGS -m "Publish"
 git push -f origin $PUBLISH_BRANCH
