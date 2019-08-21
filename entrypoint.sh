@@ -20,7 +20,7 @@ if git branch --list | grep -q $PUBLISH_BRANCH; then
 fi
 
 git checkout --orphan $PUBLISH_BRANCH
-cp -R $DOCS_PATH /github/docs
+mv $DOCS_PATH /github/docs
 git rm -r -f .
 rm -r .
 mv /github/docs/* .
