@@ -36,6 +36,7 @@ if test -n $INPUT_SHOWUNDERSCOREFILES; then
 fi
 
 echo "machine github.com login $GITHUB_ACTOR password $GITHUB_TOKEN" > ~/.netrc
+echo "machine api.github.com login $GITHUB_ACTOR password $GITHUB_TOKEN" >> ~/.netrc
 chmod 600 ~/.netrc
 
 git add .
@@ -43,3 +44,7 @@ git config user.name "$GITHUB_ACTOR"
 git config user.email "$INPUT_GITCOMMITEMAIL"
 git commit $INPUT_GITCOMMITFLAGS -m "Publish"
 git push -f $INPUT_GITPUSHFLAGS origin $INPUT_PUBLISHBRANCH
+curl --verbose --netrc --request POST \
+    --header 'Accept: application/vnd.github.mister-fantastic-preview+json' \
+    https://api.github.com/repos/$GITHUB_REPOSITORY/pages/builds
+
