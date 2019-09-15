@@ -3,35 +3,35 @@
 set +e
 set +x
 
-if test -z "$DOCS_PATH"; then
-    DOCS_PATH=docs
+if test -z "$INPUT_DOCSPATH"; then
+    INPUT_DOCSPATH=docs
 fi
 
-if test -z "$PUBLISH_BRANCH"; then
-    PUBLISH_BRANCH=gh-pages
+if test -z "$INPUT_PUBLISHBRANCH"; then
+    INPUT_PUBLISHBRANCH=gh-pages
 fi
 
-if test -z "$GIT_COMMIT_EMAIL"; then
-    echo 'Please set the GIT_COMMIT_EMAIL environment variable to a GitHub verified email address.' 1>&2
+if test -z "$INPUT_GITCOMMITEMAIL"; then
+    echo 'Please set the gitCommitEmail input variable to a GitHub verified email address.' 1>&2
     exit 1
 fi
 
-if test -z "$GIT_COMMIT_USER"; then
-    GIT_COMMIT_USER="$GITHUB_ACTOR"
+if test -z "$INPUT_GITCOMMITUSER"; then
+    INPUT_GITCOMMITUSER="$GITHUB_ACTOR"
 fi
 
-if git branch --list | grep -q $PUBLISH_BRANCH; then
-    git branch -D $PUBLISH_BRANCH
+if git branch --list | grep -q $INPUT_PUBLISHBRANCH; then
+    git branch -D $INPUT_PUBLISHBRANCH
 fi
 
-git checkout --orphan $PUBLISH_BRANCH
-mv $DOCS_PATH /github/docs
+git checkout --orphan $INPUT_PUBLISHBRANCH
+mv $INPUT_DOCSPATH /github/docs
 git rm -r -f .
 rm -r *
 ls -d .* | grep -vP '^\.(\.?|git)$' | xargs rm -r
 mv /github/docs/* .
 
-if test -n $SHOW_UNDERSCORE_FILES; then
+if test -n $INPUT_SHOWUNDERSCOREFILES; then
     touch .nojekyll
 fi
 
@@ -40,6 +40,6 @@ chmod 600 ~/.netrc
 
 git add .
 git config user.name "$GITHUB_ACTOR"
-git config user.email "$GIT_COMMIT_EMAIL"
-git commit $GIT_COMMIT_FLAGS -m "Publish"
-git push -f origin $PUBLISH_BRANCH
+git config user.email "$INPUT_GITCOMMITEMAIL"
+git commit $INPUT_GITCOMMITFLAGS -m "Publish"
+git push -f origin $INPUT_PUBLISHBRANCH

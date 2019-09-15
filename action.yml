@@ -1,0 +1,31 @@
+name: GitHub Pages Deployment
+description: Deploys static pages to GitHub Pages
+branding:
+  icon: book-open
+  color: gray-dark
+inputs:
+  docsPath:
+    description: The location of the pre-generated static content, prior to publishing.
+    default: docs
+    required: false
+  gitCommitEmail:
+    description: The email to use when committing to the repository. Per the docs, it must be a verified email for the pages to be published.
+    required: true
+  gitCommitFlags:
+    description: 'Any extra `git commit` flags to pass, such as `--no-verify`.'
+    default: ''
+    required: false
+  gitCommitUser:
+    description: 'The value to set `git config user.name`, defaults to the repository owner.'
+    required: false
+  publishBranch:
+    description: 'The branch to publish the GitHub Pages content to.'
+    default: 'gh-pages'
+    required: false
+  showUnderscoreFiles:
+    description: 'Adds a `.nojekyll` file to the root so files that start with `_` are accessible via the website.'
+    default: false
+    required: false
+runs:
+  using: docker
+  image: Dockerfile
