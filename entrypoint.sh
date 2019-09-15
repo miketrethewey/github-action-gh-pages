@@ -42,4 +42,4 @@ git add .
 git config user.name "$GITHUB_ACTOR"
 git config user.email "$INPUT_GITCOMMITEMAIL"
 git commit $INPUT_GITCOMMITFLAGS -m "Publish"
-git push -f origin $INPUT_PUBLISHBRANCH
+git push -f $INPUT_GITPUSHFLAGS origin $INPUT_PUBLISHBRANCH

@@ -18,6 +18,10 @@ inputs:
   gitCommitUser:
     description: 'The value to set `git config user.name`, defaults to the repository owner.'
     required: false
+  gitPushFlags:
+    description: 'Any extra `git push` flags to pass, such as `--no-verify`.'
+    default: ''
+    required: false
   publishBranch:
     description: 'The branch to publish the GitHub Pages content to.'
     default: 'gh-pages'

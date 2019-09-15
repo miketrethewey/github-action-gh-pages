@@ -9,6 +9,7 @@ A simple GitHub Action to deploy already generated static pages to GitHub Pages.
   it must be a verified email for the pages to be published.
 * `gitCommitFlags`: Any extra `git commit` flags to pass, such as `--no-verify`.
 * `gitCommitUser`: The value to set `git config user.name`, defaults to the repository owner.
+* `gitPushFlags`: Any extra `git push` flags to pass, such as `--no-verify`.
 * `publishBranch` - defaults to `gh-pages`
 * `showUnderscoreFiles` - if set, adds a `.nojekyll` file to the root so files that start with
   `_` are accessible.
